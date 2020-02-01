@@ -35,6 +35,12 @@ ligne_start_11 = 2
 colonne_start_11 = 16
 temps11 = 500
 
+xstart7 = 660
+ystart7 = 500
+ligne_start_7 = 10
+colonne_start_7 = 16
+temps7 = 120
+
 
 xstart_tuto = 440
 ystart_tuto = 600
@@ -71,9 +77,11 @@ direction_boite = "none"
 boite_disp = 0
 bouton_val = 0
 choisi = 0
+fleche_time = 0
 
 H_S1 = 42069
 H_S2 = 42069
+H_S4 = 42069
 H_S6 = 42069
 H_S7 = 42059
 H_S8 = 42069
@@ -121,7 +129,7 @@ BARCADEY = 300
 
 #------------création de fonctions-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def high_score(map_nombre):
-    global secondes, H_S1, H_S2, H_S6, H_S7, H_S8 
+    global secondes, H_S1, H_S2, H_S4, H_S6, H_S7, H_S8 
     if map_nombre == map_un_peu_illisible :
         if H_S1 > secondes :
             if secondes != 0 :
@@ -176,7 +184,6 @@ def high_score(map_nombre):
             textSize(50)
             text("High score :",300,800)
             text(H_S7,600,800)
-            text("secondes",710,800)
             if H_S7 > 100 :
                 text("secondes",710,800)
             if H_S7 < 100 and H_S7 > 9 :
@@ -192,7 +199,6 @@ def high_score(map_nombre):
             textSize(50)
             text("High score :",300,800)
             text(H_S8,600,800)
-            text("secondes",710,800)
             if H_S8 > 100 :
                 text("secondes",710,800)
             if H_S8 < 100 and H_S8 > 9 :
@@ -200,6 +206,21 @@ def high_score(map_nombre):
             if H_S8 < 10 :
                 text("secondes",660,800)    
                         
+        
+    if map_nombre == map_worm :
+        if H_S4 > secondes :
+            if secondes != 0 :
+                H_S4 = secondes
+            fill(255,0,255)
+            textSize(50)
+            text("High score :",300,800)
+            text(H_S4,600,800)
+            if H_S4 > 100 :
+                text("secondes",710,800)
+            if H_S4 < 100 and H_S4 > 9 :
+                text("secondes",690,800)
+            if H_S4 < 10 :
+                text("secondes",660,800)
 
 def choix_de_la_map():
     global bouton_1, bouton_2, bouton_3 ,bouton_4, bouton_5, bouton_6, bouton_7, bouton_8, bouton_9, bouton_10, bouton_11, commence
@@ -500,7 +521,7 @@ def boites_2(map_nombre, coords) :
     global ligne, coord_liste, stop_check, fanta, secondes, bloc_move, hero_ligne, hero_colonne, direction, direction_boite, boite_ligne, boite_colonne, hero_ligne, hero_colonne, boite_x, boite_y, boite_disp
         
     if direction_boite == "bas" :
-        if map_nombre [boite_ligne + 1][boite_colonne][0] == "1" or map_nombre [boite_ligne + 1][boite_colonne][0] == "L" or map_nombre [boite_ligne + 1][boite_colonne][0] == "R" or map_nombre [boite_ligne + 1][boite_colonne][0] == "D" or map_nombre [boite_ligne + 1][boite_colonne][0] == "U" or blocus(map_nombre) == 'true' :
+        if map_nombre [boite_ligne + 1][boite_colonne][0] == "1" or map_nombre [boite_ligne + 1][boite_colonne][0] == "L" or map_nombre [boite_ligne + 1][boite_colonne][0] == "R" or map_nombre [boite_ligne + 1][boite_colonne][0] == "D" or map_nombre [boite_ligne + 1][boite_colonne][0] == "U" or blocus(map_nombre) == 'true' or map_nombre [boite_ligne + 1][boite_colonne][0] == "O" or map_nombre [boite_ligne + 1][boite_colonne][0] == "P":
             direction_boite = 'none'
         else :
             for o in range(20) :
@@ -508,7 +529,7 @@ def boites_2(map_nombre, coords) :
             boite_ligne = boite_ligne + 1
             
     if direction_boite == "haut" :
-        if map_nombre [boite_ligne - 1][boite_colonne][0] == "1" or map_nombre [boite_ligne - 1][boite_colonne][0] == "L" or map_nombre [boite_ligne - 1][boite_colonne][0] == "R" or map_nombre [boite_ligne - 1][boite_colonne][0] == "D" or map_nombre [boite_ligne - 1][boite_colonne][0] == "U" or blocus(map_nombre) == 'true' :
+        if map_nombre [boite_ligne - 1][boite_colonne][0] == "1" or map_nombre [boite_ligne - 1][boite_colonne][0] == "L" or map_nombre [boite_ligne - 1][boite_colonne][0] == "R" or map_nombre [boite_ligne - 1][boite_colonne][0] == "D" or map_nombre [boite_ligne - 1][boite_colonne][0] == "U" or blocus(map_nombre) == 'true' or map_nombre [boite_ligne - 1][boite_colonne][0] == "O" or map_nombre [boite_ligne - 1][boite_colonne][0] == "P" :
             direction_boite = 'none'
         else :
             for o in range(20) :
@@ -516,7 +537,7 @@ def boites_2(map_nombre, coords) :
             boite_ligne = boite_ligne - 1
             
     if direction_boite == 'droite' :
-        if map_nombre [boite_ligne][boite_colonne + 1][0] == "1" or map_nombre [boite_ligne][boite_colonne + 1][0] == "L" or map_nombre [boite_ligne][boite_colonne + 1][0] == "R" or map_nombre [boite_ligne][boite_colonne + 1][0] == "D" or map_nombre [boite_ligne][boite_colonne + 1][0] == "U" or blocus(map_nombre) == 'true' :
+        if map_nombre [boite_ligne][boite_colonne + 1][0] == "1" or map_nombre [boite_ligne][boite_colonne + 1][0] == "L" or map_nombre [boite_ligne][boite_colonne + 1][0] == "R" or map_nombre [boite_ligne][boite_colonne + 1][0] == "D" or map_nombre [boite_ligne][boite_colonne + 1][0] == "U" or blocus(map_nombre) == 'true' or map_nombre [boite_ligne][boite_colonne + 1][0] == "O" or map_nombre [boite_ligne][boite_colonne + 1][0] == "P" :
             direction_boite = 'none'
         else :
             for i in range(20) :
@@ -524,7 +545,7 @@ def boites_2(map_nombre, coords) :
             boite_colonne = boite_colonne + 1 
    
     if direction_boite == 'gauche' :
-        if map_nombre [boite_ligne][boite_colonne - 1][0] == "1" or map_nombre [boite_ligne][boite_colonne - 1][0] == "L" or map_nombre [boite_ligne][boite_colonne - 1][0] == "R" or map_nombre [boite_ligne][boite_colonne - 1][0] == "D" or map_nombre [boite_ligne][boite_colonne - 1][0] == "U" or blocus(map_nombre) == 'true' :
+        if map_nombre [boite_ligne][boite_colonne - 1][0] == "1" or map_nombre [boite_ligne][boite_colonne - 1][0] == "L" or map_nombre [boite_ligne][boite_colonne - 1][0] == "R" or map_nombre [boite_ligne][boite_colonne - 1][0] == "D" or map_nombre [boite_ligne][boite_colonne - 1][0] == "U" or blocus(map_nombre) == 'true' or map_nombre [boite_ligne][boite_colonne - 1][0] == "O" or map_nombre [boite_ligne][boite_colonne - 1][0] == "P" :
             direction_boite = 'none'
         else :
             for i in range(20) :
@@ -684,17 +705,20 @@ def blocus(map_nombre) :
                     return 'false'
  
 def tik_tok(map_nombre):
-    global timer, secondes, bloc_wait, bloc_move, bloc_move2, timer_move, ligne_check_move
+    global timer, secondes, bloc_wait, bloc_move, bloc_move2, timer_move, ligne_check_move, fleche_time
     timer = timer + 0.015
     timer_move = timer_move + 0.015
     if timer > 1.0 :
         secondes = secondes + 1
         bloc_wait = bloc_wait + 1
         timer = 0
+        fleche_time = fleche_time + 1
     if timer_move > 0.5 :
         timer_move = 0
-    if bloc_wait > 4 :
+    if bloc_wait > 3 :
         bloc_wait = 0
+    if fleche_time > 1 :
+        fleche_time = 0
         
         
 def win(map_nombre) :
@@ -832,6 +856,12 @@ def start_point(map_nombre):
         hero_ligne = ligne_start_11
         hero_colonne = colonne_start_11
         
+    if map_nombre == map_worm :
+        hero_x = xstart7
+        hero_y = ystart7
+        hero_ligne = ligne_start_7
+        hero_colonne = colonne_start_7
+        
         
 def lose(map_nombre):
     global secondes, lost, ecran_defaite
@@ -854,6 +884,10 @@ def lose(map_nombre):
             
     if map_nombre == map_ultime :
         if secondes > temps11 :
+            lost = 1
+            
+    if map_nombre == map_worm :
+        if secondes > temps7 :
             lost = 1
     
     if lost == 1 :
@@ -939,12 +973,31 @@ def time(map_nombre):
             else :
                 text(temps11 - secondes, 540, 130)
         fill(255,255,255)
+        
+        
+    if map_nombre == map_worm :
+        rect(500,0,200,200)
+        if temps7 - secondes > 30 :
+            fill(0,0,0)
+            textSize(50)
+            if temps7 - secondes > 99 :
+                text(temps7 - secondes, 550, 120)
+            else :
+                text(temps7 - secondes, 570, 120)
+        else :
+            textSize(100) 
+            fill(255,0,0)
+            if temps7 - secondes < 10 :
+                text(temps7 - secondes, 570, 130)
+            else :
+                text(temps7 - secondes, 540, 130)
+        fill(255,255,255)
             
 #------------création de fonctions-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def setup():
     size(1200, 1200);
-    global heroImg, case, case_blocus, blocus_couleur, case_blocus2, ecran_victoire, bouton_1, bouton_2, bouton_3 ,bouton_4, bouton_5, bouton_6, bouton_7, bouton_8, bouton_9, bouton_10, bouton_11, ecran_defaite, fanta_Img, affronte_les_arabes, olfo, enfer, ui, wtc_38, case_vide, minecart, sol, minecart_2, case_vide_2, case_vide_3, boite_img, bouton, bouton_V, bouton_J, porte_1, gold, cle, porte_cle, grinder, left, freeze, ecran_fin, aventure, arcade
+    global heroImg, case, case_blocus, blocus_couleur, case_blocus2, ecran_victoire, bouton_1, bouton_2, bouton_3 ,bouton_4, bouton_5, bouton_6, bouton_7, bouton_8, bouton_9, bouton_10, bouton_11, ecran_defaite, fanta_Img, affronte_les_arabes, olfo, enfer, ui, wtc_38, case_vide, minecart, sol, minecart_2, case_vide_2, case_vide_3, boite_img, bouton, bouton_V, bouton_J, porte_1, gold, cle, porte_cle, grinder, left, freeze, ecran_fin, aventure, arcade, fleche
     heroImg = loadImage("bullya.png")
     case = loadImage("sol vert.png")
     case_blocus = loadImage("go.png")
@@ -989,13 +1042,15 @@ def setup():
     ecran_fin = loadImage("true end.png")
     arcade = loadImage("ARCADE.png")
     aventure = loadImage("AVENTURE.png")
+    fleche = loadImage("fleche.png")
 
     
 def draw():
-    global heroImg,hero_x,hero_y, hero_colonne, hero_ligne, backswitch, map_choisie, fanta  #il faut mettre toute les variables qu'on utilise plus bas là dedans ;)
+    global heroImg,hero_x,hero_y, hero_colonne, hero_ligne, backswitch, map_choisie, fanta, fleche_time  #il faut mettre toute les variables qu'on utilise plus bas là dedans ;)
     background(80, 25, 12)
     choix_de_la_map()
     print(map_choisie)
+    print(fleche_time)
     
     if map_choisie == 1 :
         if stop_check == 0 :
@@ -1076,6 +1131,18 @@ def draw():
         win(map_test)
         lose(map_test)
         
+        
+    if map_choisie == 7 :
+        if stop_check == 0 :
+            if lost == 0 :
+                tout_tout_tout_sur_les_maps(map_worm, coord_liste_7)
+                deplacement(map_worm, coord_liste_7)
+                if fanta == 0 :
+                    image(heroImg, hero_x, hero_y)
+                else :
+                    image(fanta_Img, hero_x, hero_y)
+        win(map_worm)
+        lose(map_worm)  
             
     if map_choisie == 9 :
         if stop_check == 0 :
@@ -1107,6 +1174,17 @@ def draw():
                 tout_tout_tout_sur_les_maps(map_ultime, coord_liste_11)
                 boites_2(map_ultime, coord_liste_11)
                 deplacement(map_ultime, coord_liste_11)
+                fill(255,255,0)
+                textSize(20)
+                text("essayez de mettre une boite ici !",200,1020)
+                text("et ici !",640,1020)
+                fill(255,255,255)
+                if fleche_time < 1 :
+                    image(fleche, 480, 970)
+                    image(fleche, 645, 970)
+                else :
+                    image(fleche, 480, 950)
+                    image(fleche, 645, 950)
                 if fanta == 0 :
                     image(heroImg, hero_x, hero_y)
                     image(boite_img, boite_x, boite_y)
@@ -1341,6 +1419,11 @@ def mousePressed() :
             last_map = 5
             start_point(map_test)
 
+        if mouseX > B7X and mouseY > B7Y and mouseX < B7X + 250 and mouseY < B7Y + 250 :
+            commence = 1
+            map_choisie = 7
+            last_map = 7
+            start_point(map_worm)
         
         if mouseX > B9X and mouseY > B9Y and mouseX < B9X + 250 and mouseY < B9Y + 250 :
             commence = 1
@@ -1394,6 +1477,10 @@ def mousePressed() :
                 reset(map_test, coord_liste_2)
                 start_point(map_test)
                 
+            if last_map == 7 : 
+                reset(map_worm, coord_liste_7)
+                start_point(map_worm)
+                
             if last_map == 9 : 
                 reset(map_liste_illisible, coord_liste)
                 start_point(map_liste_illisible)
@@ -1416,6 +1503,7 @@ coord_liste_tuto_1 = [ (420,580) ,(440,580) ,(460,580) ,(480,580) ,(500,580) ,(5
 coord_liste_3 = [ (460,500),(480,500),(500,500),(520,500),(540,500),(560,500),(580,500),(600,500), (620,500),(640,500),(660,500),(680,500),(700,500),(720,500),(740,500),(760,500) ]
 coord_liste_4 =[ (300,300),(320,300),(340,300),(360,300),(380,300),(400,300),(420,300),(440,300),(460,300),(480,300),(500,300),(520,300),(540,300),(560,300),(580,300),(600,300),(620,300),(640,300),(660,300),(680,300),(700,300),(720,300),(740,300),(760,300),(780,300),(800,300),(820,300),(840,300),(860,300),(880,300),(900,300)]
 coord_liste_11 =[ (300,300),(320,300),(340,300),(360,300),(380,300),(400,300),(420,300),(440,300),(460,300),(480,300),(500,300),(520,300),(540,300),(560,300),(580,300),(600,300),(620,300),(640,300),(660,300),(680,300),(700,300),(720,300),(740,300),(760,300),(780,300),(800,300),(820,300),(840,300),(860,300),(880,300),(900,300), (920, 300)]
+coord_liste_7 = [ (340,300),(360,300),(380,300),(400,300),(420,300),(440,300),(460,300),(480,300),(500,300),(520,300),(540,300),(560,300),(580,300),(600,300),(620,300),(640,300),(660,300),(680,300),(700,300),(720,300),(740,300),(760,300),(780,300),(800,300),(820,300),(840,300)]
 
 map_liste_illisible = [ ["1", "1", "1", "1", "1","°" ,"°","°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ], 
                         ["1" ,"0" ,"0" ,"0" ,"1" ,"1" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" ,"°" , "°"], 
@@ -1579,6 +1667,34 @@ map_ultime = [ ["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1",
                ["1","1","0","0","1","0","1","0","1","0","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","1"],
                ["1","1","0","0","0","B","1","B","1","B","1","0","0","0","0","0","0","H","0","0","0","0","0","0","0","0","0","0","0","0","1"],
                ["1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"] ]
+
+
+map_worm = [ ["°","°","°","1","1","1","1","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°"],
+             ["°","°","1","1","0","0","0","1","1","1","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°"],
+              ["°","1","0","0","0","0","0","0","0","1","1","°","°","°","°","°","°","°","°","°","°","°","°","°","°","°"],
+["°","1","0","0","1","1","M","0","0","0","0","1","1","°","°","°","°","°","°","°","°","°","°","°","°","°"],
+["1","0","0","0","1","1","0","0","0","0","0","0","0","1","°","°","°","°","°","°","°","°","°","°","°","°"],
+["1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","1","°","°","°","°","°","°","°","°","°","°"],
+["1","0","0","0","0","0","0","0","M","0","0","0","0","0","0","1","°","°","°","°","°","°","°","°","°","°"],
+["1","0","0","0","0","M","0","0","0","0","0","0","0","0","0","0","1","°","°","°","°","°","°","°","°","°"],
+["°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","1","°","°","°","°","°","°","°","°","°"],
+["°","1","1","1","1","0","0","0","0","1","1","1","0","0","0","0","1","1","°","°","°","°","°","°","°","°"],
+["°","°","°","1","1","0","0","0","0","1","°","1","0","0","0","0","0","1","°","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","1","°","1","0","0","0","0","0","1","°","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","1","°","1","0","0","0","0","0","1","°","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","1","1","1","0","0","0","0","0","1","°","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","0","0","0","0","0","M","0","0","0","1","°","°","°","°","°","°","°"],
+["°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","1","°","°","°","°","°","°"],
+["°","°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","1","°","°","°","°","°"],
+["°","°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","1","1","1","1","1","°"],
+["°","°","°","°","°","1","1","0","0","0","0","M","0","0","0","0","0","0","0","0","0","0","0","0","0","1"],
+["°","°","°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","M","1"],
+["°","°","°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","1"],
+["°","°","°","°","°","°","°","1","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","1"],
+["°","°","°","°","°","°","°","°","1","1","0","0","0","0","0","0","0","0","0","1","1","0","0","0","0","1"],
+["°","°","°","°","°","°","°","°","°","°","1","1","1","0","0","0","0","1","1","°","°","1","1","1","1","°"],
+["°","°","°","°","°","°","°","°","°","°","°","°","°","1","1","1","1","°","°","°","°","°","°","1","1","°"] ]
 
                     
 #----Listes pour décrire la map---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
