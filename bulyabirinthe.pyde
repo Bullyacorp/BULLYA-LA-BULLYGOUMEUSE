@@ -78,6 +78,7 @@ boite_disp = 0
 bouton_val = 0
 choisi = 0
 fleche_time = 0
+alea_sol = 0
 
 H_S1 = 42069
 H_S2 = 42069
@@ -128,6 +129,71 @@ BARCADEY = 300
 
 
 #------------création de fonctions-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def rando_poto(map_nombre, coords):
+    global ligne, coord_liste, stop_check, fanta, alea_sol
+    if stop_check == 0 :
+        if lost == 0 :
+            lane = len(map_nombre)
+            colonne = len(map_nombre[0])
+            for o in range(lane) :
+                for i in range (colonne):
+                    if map_nombre [o][i][0] == "0" :
+                        alea_sol = random(2, 10)
+                        if alea_sol > 2 and alea_sol < 3 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "2")
+                        if alea_sol > 3 and alea_sol < 4 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "3")
+                        if alea_sol > 4 and alea_sol < 5 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "4")
+                        if alea_sol > 5 and alea_sol < 6 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "5")
+                        if alea_sol > 6 and alea_sol < 7 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "6")
+                        if alea_sol > 7 and alea_sol < 8 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "7")
+                        if alea_sol > 8 and alea_sol < 9 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "8")
+                        if alea_sol > 9 and alea_sol < 10 :
+                            map_nombre[o].pop(i)
+                            map_nombre[o].insert(i, "9")
+                ligne = ligne + 20
+            ligne = coords[0][1]
+            
+
+def rando_drowo(map_nombre, coords):
+    global ligne, coord_liste, stop_check, fanta, alea_sol
+    if stop_check == 0 :
+        if lost == 0 :
+            lane = len(map_nombre)
+            colonne = len(map_nombre[0])
+            for o in range(lane) :
+                for i in range (colonne):
+                    if map_nombre [o][i][0] == "2" :
+                        image(sol2,(coords[i][0]),ligne)
+                    if map_nombre [o][i][0] == "3" :
+                        image(sol3,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "4" :
+                        image(sol4,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "5" :
+                        image(sol5,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "6" :
+                        image(sol6,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "7" :
+                        image(sol7,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "8" :
+                        image(sol8,(coords[i][0]),ligne) 
+                    if map_nombre [o][i][0] == "9" :
+                        image(sol9,(coords[i][0]),ligne) 
+                ligne = ligne + 20
+            ligne = coords[0][1]
+
 def high_score(map_nombre):
     global secondes, H_S1, H_S2, H_S4, H_S6, H_S7, H_S8 
     if map_nombre == map_un_peu_illisible :
@@ -241,7 +307,6 @@ def choix_de_la_map():
 def tout_tout_tout_sur_les_maps(map_nombre, coords):
     global hero_x, hero_y, xstart1, ystart1, hero_ligne, hero_colonne, while_infini, direction, ligne, trail_ligne, stop, secondes, minutes, timer
     crea_map(map_nombre, coords)
-    crea_map2(map_nombre, coords)
     trail_fill(map_nombre, coords)
     trail(map_nombre)
     blocus(map_nombre)
@@ -258,7 +323,9 @@ def tout_tout_tout_sur_les_maps(map_nombre, coords):
     moving_blocs_draw_4(map_nombre, coords)
     boutons_porte(map_nombre, coords)
     three_freeze(map_nombre, coords)
-
+    rando_poto(map_nombre, coords)
+    rando_drowo(map_nombre, coords)
+    
 def crea_map(map_nombre, coords) :          # fonction qui permet de creer la map
     global ligne, coord_liste, stop_check, fanta
     if stop_check == 0 :
@@ -267,7 +334,7 @@ def crea_map(map_nombre, coords) :          # fonction qui permet de creer la ma
             colonne = len(map_nombre[0])
             for o in range(lane) :
                 for i in range (colonne):
-                    if map_nombre [o][i][0] == "1" :
+                    if map_nombre[o][i][0] == "1" :
                         if fanta == 0 :
                             rect((coords[i][0]),ligne,20,20)
                         else :
@@ -661,7 +728,7 @@ def trail_fill(map_nombre, coords) :              # fonctions pour marquer le so
         
 def trail(map_nombre) :                  # fonction pour reperer le sol sur lequel on a déja marché
     global hero_ligne, hero_colonne
-    if map_nombre[hero_ligne][hero_colonne] == "0" :
+    if map_nombre[hero_ligne][hero_colonne] == "0" or map_nombre[hero_ligne][hero_colonne] == "2" or map_nombre[hero_ligne][hero_colonne] == "3" or map_nombre[hero_ligne][hero_colonne] == "4" or map_nombre[hero_ligne][hero_colonne] == "5" or map_nombre[hero_ligne][hero_colonne] == "6" or map_nombre[hero_ligne][hero_colonne] == "7" or map_nombre[hero_ligne][hero_colonne] == "8" or map_nombre[hero_ligne][hero_colonne] == "9" :
         map_nombre[hero_ligne].pop(hero_colonne)
         map_nombre[hero_ligne].insert(hero_colonne,"V")
         
@@ -730,7 +797,7 @@ def win(map_nombre) :
         stop_check = 1
         
     if stop_check == 0:
-        if map_nombre[ligne_check].count("0") == 0 :
+        if map_nombre[ligne_check].count("0") == 0 and map_nombre[ligne_check].count("2") == 0 and map_nombre[ligne_check].count("3") == 0 and map_nombre[ligne_check].count("4") == 0 and map_nombre[ligne_check].count("5") == 0 and map_nombre[ligne_check].count("6") == 0 and map_nombre[ligne_check].count("7") == 0 and map_nombre[ligne_check].count("8") == 0 and map_nombre[ligne_check].count("9") == 0 and map_nombre[ligne_check].count("10") == 0  :
             ligne_check = ligne_check + 1
             
     if stop_check == 1 :
@@ -997,7 +1064,7 @@ def time(map_nombre):
 
 def setup():
     size(1200, 1200);
-    global heroImg, case, case_blocus, blocus_couleur, case_blocus2, ecran_victoire, bouton_1, bouton_2, bouton_3 ,bouton_4, bouton_5, bouton_6, bouton_7, bouton_8, bouton_9, bouton_10, bouton_11, ecran_defaite, fanta_Img, affronte_les_arabes, olfo, enfer, ui, wtc_38, case_vide, minecart, sol, minecart_2, case_vide_2, case_vide_3, boite_img, bouton, bouton_V, bouton_J, porte_1, gold, cle, porte_cle, grinder, left, freeze, ecran_fin, aventure, arcade, fleche
+    global heroImg, case, case_blocus, blocus_couleur, case_blocus2, ecran_victoire, bouton_1, bouton_2, bouton_3 ,bouton_4, bouton_5, bouton_6, bouton_7, bouton_8, bouton_9, bouton_10, bouton_11, ecran_defaite, fanta_Img, affronte_les_arabes, olfo, enfer, ui, wtc_38, case_vide, minecart, sol, minecart_2, case_vide_2, case_vide_3, boite_img, bouton, bouton_V, bouton_J, porte_1, gold, cle, porte_cle, grinder, left, freeze, ecran_fin, aventure, arcade, fleche, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10
     heroImg = loadImage("bullya.png")
     case = loadImage("sol vert.png")
     case_blocus = loadImage("go.png")
@@ -1043,14 +1110,23 @@ def setup():
     arcade = loadImage("ARCADE.png")
     aventure = loadImage("AVENTURE.png")
     fleche = loadImage("fleche.png")
+    sol2 = loadImage("sol 2.png")
+    sol3 = loadImage("sol 3.png")
+    sol4 = loadImage("sol 4.png")
+    sol5 = loadImage("sol 5.png")
+    sol6 = loadImage("sol 6.png")
+    sol7 = loadImage("sol 7.png")
+    sol8 = loadImage("sol 8.png")
+    sol9 = loadImage("sol 9.png")
+    sol10 = loadImage("sol 10.png")
+    
 
     
 def draw():
     global heroImg,hero_x,hero_y, hero_colonne, hero_ligne, backswitch, map_choisie, fanta, fleche_time  #il faut mettre toute les variables qu'on utilise plus bas là dedans ;)
     background(80, 25, 12)
     choix_de_la_map()
-    print(map_choisie)
-    print(fleche_time)
+    print(alea_sol)
     
     if map_choisie == 1 :
         if stop_check == 0 :
